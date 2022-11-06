@@ -1,9 +1,12 @@
-import unittest
+import io
+from unittest.mock import patch
+from unittest import TestCase
 
 from ulubione_auta import UlubioneAuta
+from auto import Auto
 
 
-class TestUlubioneAuta(unittest.TestCase):
+class TestUlubioneAuta(TestCase):
     def test_dodanie_ulubionych_aut_zle_wprowadzenie(self):
         obiekt = UlubioneAuta()
         with self.assertRaises(TypeError):
@@ -13,32 +16,66 @@ class TestUlubioneAuta(unittest.TestCase):
         with self.assertRaises(TypeError):
             obiekt.dodaj_auto("Kia", "Ceed", "2001")
 
-    def dodanie_ulubionych_aut_blednie(self):
+    def test_znalezienie_duplikatow(self):
+        obiekt = UlubioneAuta()
+        obiekt.dodaj_auto("Kia", "Ceed", 2001)
+        obiekt.dodaj_auto("Kia", "Ceed", 2001)
+        obiekt.dodaj_auto("Kia", "Sportage", 2001)
+        obiekt.dodaj_auto("Kia", "Sportage", 2001)
+        self.assertEqual(obiekt.znajdz_duplikaty(),
+                         [(Auto("Kia", "Ceed", 2001), 1), (Auto("Kia", "Sportage", 2001), 1)])
+        obiekt.dodaj_auto("BMW", "E30", 2005)
+        self.assertNotIn((Auto("BMW", "E30", 2005), 0), obiekt.znajdz_duplikaty())
+        self.assertNotIn((Auto("BMW", "E30", 2005), 1), obiekt.znajdz_duplikaty())
+        self.assertNotIn((Auto("BMW", "E30", 2005), 2), obiekt.znajdz_duplikaty())
+        self.assertEqual(obiekt.znajdz_duplikaty(),
+                         [(Auto("Kia", "Ceed", 2001), 1), (Auto("Kia", "Sportage", 2001), 1)])
+
+    def test_wypisanie_duplikatow(self):
+        lista = UlubioneAuta()
+
+        lista.dodaj_auto("Kia", "Ceed", 2000)
+        lista.dodaj_auto("Kia", "Ceed", 2001)
+        lista.dodaj_auto("Kia", "Ceed", 2001)
+        lista.dodaj_auto("Kia", "Ceed", 2001)
+        lista.dodaj_auto("Kia", "Ceed", 2002)
+        lista.dodaj_auto("BMW", "E30", 2005)
+        lista.dodaj_auto("BMW", "E30", 2005)
+        lista.dodaj_auto("Fiat", "500", 2005)
+        lista.dodaj_auto("Fiat", "500x", 2001)
+        lista.dodaj_auto("Fiat", "500x", 2003)
+        lista.dodaj_auto("Fiat", "500x", 2005)
+        lista.dodaj_auto("Fiat", "500x", 2005)
+        lista.dodaj_auto("Fiat", "Bravo", 2005)
+        lista.dodaj_auto("Fiat", "Croma", 2020)
+        lista.dodaj_auto("Fiat", "Croma", 2020)
+        expected = """Wykryto duplikaty:
+Marka: Fiat, Nazwa: 500x, Rok produkcji: 2005 - 1
+Marka: Fiat, Nazwa: Croma, Rok produkcji: 2020 - 1
+Marka: Kia, Nazwa: Ceed, Rok produkcji: 2001 - 2
+Marka: BMW, Nazwa: E30, Rok produkcji: 2005 - 1
+"""
+        with patch('sys.stdout', new=io.StringIO()) as text:
+            lista.wypisz_duplikaty()
+            self.assertEqual(text.getvalue(), expected)
+
+    def test_usun_duplikaty(self):
         pass
 
-    def znalezienie_duplikatow(self):
+    def test_sortuj_nazwa(self):
         pass
 
-    def wypisanie_duplikatow(self):
+    def test_sortuj_nazwa_odwrotnie(self):
         pass
 
-    def usun_duplikaty(self):
+    def test_sortuj_marka(self):
         pass
 
-    def sortuj_nazwa(self):
+    def test_sortuj_marka_odwrotnie(self):
         pass
 
-    def sortuj_nazwa_odwrotnie(self):
+    def test_sortuj_rok(self):
         pass
 
-    def sortuj_marka(self):
-        pass
-
-    def sortuj_marka_odwrotnie(self):
-        pass
-
-    def sortuj_rok(self):
-        pass
-
-    def sortuj_rok_odwrotnie(self):
+    def test_sortuj_rok_odwrotnie(self):
         pass

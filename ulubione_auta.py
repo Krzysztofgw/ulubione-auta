@@ -43,13 +43,10 @@ class UlubioneAuta:
                 print("Wykryto duplikaty:")
                 for i, licznik in duplikaty:
                     print(i, f"- {licznik}")
-                return True
             else:
                 print("Nie wykryto duplikatów.")
-                return False
         else:
             print("Nie wprowadzono ulubionych aut.")
-            return False
 
     def usun_duplikaty(self):
         if self.auta:
@@ -91,14 +88,14 @@ if __name__ == "__main__":
 
     lista.wypisz_duplikaty()
 
-    lista.usun_duplikaty()
-
-    lista.wypisz_duplikaty()
-
-    lista.wypisz_auta()
-    print(lista.sortuj_nazwa(False))
-    print(lista.sortuj_nazwa(True))
-    print(lista.sortuj_marka(False))
-    print(lista.sortuj_marka(True))
-    print(lista.sortuj_rok(False))
-    print(lista.sortuj_rok(True))
+    # lista.usun_duplikaty()
+    #
+    # lista.wypisz_duplikaty()
+    #
+    # lista.wypisz_auta()
+    # print(lista.sortuj_nazwa(False))
+    # print(lista.sortuj_nazwa(True))
+    # print(lista.sortuj_marka(False))
+    # print(lista.sortuj_marka(True))
+    # print(lista.sortuj_rok(False))
+    # print(lista.sortuj_rok(True))

@@ -66,7 +66,6 @@ class UlubioneAuta:
 
 
 if __name__ == "__main__":
-
     lista = UlubioneAuta()
 
     lista.dodaj_auto("Kia", "Ceed", 2000)
@@ -86,15 +85,15 @@ if __name__ == "__main__":
     lista.dodaj_auto("Fiat", "Croma", 2020)
     # lista.wypisz_auta()
 
-    lista.wypisz_duplikaty()
+    # lista.wypisz_duplikaty()
 
-    # lista.usun_duplikaty()
+    lista.usun_duplikaty()
     #
     # lista.wypisz_duplikaty()
     #
     # lista.wypisz_auta()
-    # print(lista.sortuj_nazwa(False))
-    # print(lista.sortuj_nazwa(True))
+    print(lista.sortuj_nazwa(False))
+    print(lista.sortuj_nazwa(True))
     # print(lista.sortuj_marka(False))
     # print(lista.sortuj_marka(True))
     # print(lista.sortuj_rok(False))
